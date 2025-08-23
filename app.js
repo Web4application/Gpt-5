@@ -35,3 +35,11 @@ sendBtn.addEventListener("click", sendMessage);
 input.addEventListener("keypress", e => {
   if (e.key === "Enter") sendMessage();
 });
+
+// Register service worker for PWA
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("✅ Service Worker registered"))
+    .catch(err => console.error("SW registration failed:", err));
+}
+
