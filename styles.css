@@ -7,28 +7,37 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
   color: var(--fg);
   font-family: "Segoe UI", system-ui, sans-serif;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   height: 100vh;
 }
 
-#chat-container {
-  width: 100%;
-  max-width: 600px;
+header {
   display: flex;
-  flex-direction: column;
-  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.8rem;
+  background: #111;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  color: var(--accent);
+#logo {
+  height: 36px;
+  width: auto;
+}
+
+#chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  padding: 1rem;
 }
 
 #chat {
@@ -79,4 +88,11 @@ h1 {
   cursor: pointer;
   border-radius: 0 8px 8px 0;
   font-size: 1.2rem;
+  transition: 0.2s;
 }
+
+#send:hover {
+  background: #26c6da;
+  transform: scale(1.05);
+}
+
