@@ -445,7 +445,7 @@
         <div aria-live="assertive" aria-atomic="true" class="sr-only" id="live-region-assertive"></div>
         <div aria-live="polite" aria-atomic="true" class="sr-only" id="live-region-polite"></div>
         <audio class="fixed start-0 bottom-0 hidden h-0 w-0" autoPlay="" crossorigin="anonymous"></audio>
-        <script nonce="2c7de233-79a2-433d-a88f-c59c50c57882">
+     <script nonce="2c7de233-79a2-433d-a88f-c59c50c57882">
             window.__reactRouterContext = {
                 "basename": "/",
                 "future": {
