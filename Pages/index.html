@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="ChatGPT5 mini helps you get answers, find inspiration and be more productive. Free to use and easy to try." />
+<meta name="keywords" content="ChatGPT5 mini, AI assistant, productivity chatbot, writing help, brainstorm tool" />
+<link rel="icon" href="/favicon.png" sizes="32x32" />
+<link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
+<link href="/styles/style.css" rel="stylesheet" />
+<title>ChatGPT5 mini</title>
+</head>
+<body>
+  <section class="hero">
+    <img src="/logo.png" alt="ChatGPT5 mini logo" />
+    <h1>Welcome to ChatGPT5 mini</h1>
+    <p>Your AI companion for writing, learning, and productivity.</p>
+    <a href="#chat-preview" class="cta-button">Try It Now</a>
+  </section>
+
+  <div style="text-align:center; margin:10px;">
+    <button onclick="document.body.classList.toggle('dark-mode')">Toggle Dark Mode</button>
+  </div>
+
+  <section id="chat-preview">
+    <h2>See ChatGPT5 mini in Action</h2>
+    <div id="chat-container">
+      <div id="chat"></div>
+      <div id="input-bar">
+        <input id="input" type="text" placeholder="Say something…" />
+        <button id="send">Send</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>Why People Love ChatGPT5 mini</h2>
+    <blockquote>"Helped me write my resume in minutes!" – Ada</blockquote>
+    <blockquote>"Great for quick brainstorming before meetings." – Tunde</blockquote>
+  </section>
+
+  <footer>
+    <p>We respect your privacy. No data is stored without your consent.</p>
+    <a href="https://github.com/Web4application/roupg" target="_blank">View Source on GitHub</a>
+  </footer>
+
+<script>
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("send");
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if(!text) return;
+  addMessage("You: " + text, "user");
+  input.value = "";
+  input.focus();
+  const loadingMsg = addMessage("AI is typing...", "ai");
+
+  try {
+    const res = await fetch("/api/chat", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ message: text })
+    });
+    if(!res.ok) throw new Error("Network response not OK");
+    const data = await res.json();
+    loadingMsg.textContent = "AI: " + data.reply;
+  } catch(err){
+    loadingMsg.textContent = "⚠️ Error connecting to backend";
+    console.error(err);
+  }
+}
+
+function addMessage(text, cls) {
+  const msg = document.createElement("div");
+  msg.className = `msg ${cls}`;
+  msg.textContent = text;
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+  return msg;
+}
+
+sendBtn.addEventListener("click", sendMessage);
+input.addEventListener("keypress", e=>{ if(e.key==="Enter") sendMessage(); });
+</script>
+</body>
+</html>
