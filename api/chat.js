@@ -1,0 +1,1 @@
+// JS placeholder; paste full chat.js code here
