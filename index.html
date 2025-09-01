@@ -16,114 +16,47 @@
   <title>ChatGPT5 mini</title>
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #222;
-      transition: background 0.3s, color 0.3s;
-    }
+    body { font-family:'Inter',sans-serif; margin:0; padding:0; background:#fff; color:#222; transition:0.3s; }
+.hero { text-align:center; padding:60px 20px; background:linear-gradient(to right,#6a11cb,#2575fc); color:white; }
+.hero img { height:64px; margin-bottom:20px; }
+.cta-button { background:white; color:#2575fc; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:bold; transition:0.2s; }
+.cta-button:hover{ background:#f0f0f0; }
 
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      color: white;
-    }
-    .hero img {
-      height: 64px;
-      margin-bottom: 20px;
-    }
-    .cta-button {
-      background: white;
-      color: #2575fc;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+#chat-preview { padding:40px 20px; text-align:center; }
+#chat-container { max-width:600px; margin:20px auto; background:#f4f4f4; border-radius:12px; padding:20px; display:flex; flex-direction:column; height:400px; }
+#chat { flex:1; overflow-y:auto; scroll-behavior:smooth; margin-bottom:10px; text-align:left; }
 
-    /* Chat Section */
-    #chat-preview {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    #chat-container {
-      max-width: 600px;
-      margin: 20px auto;
-      background: #f4f4f4;
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      height: 400px;
-    }
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      text-align: left;
-    }
-    .msg {
-      margin: 8px 0;
-      padding: 10px 14px;
-      border-radius: 10px;
-      line-height: 1.4;
-      max-width: 80%;
-    }
-    .user { background: #2575fc; color: #fff; margin-left: auto; }
-    .ai { background: #e0e0e0; color: #222; margin-right: auto; }
-    #input-bar {
-      display: flex;
-    }
-    #input {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 8px 0 0 8px;
-    }
-    #send {
-      background: #2575fc;
-      border: none;
-      color: white;
-      padding: 0 20px;
-      border-radius: 0 8px 8px 0;
-      cursor: pointer;
-    }
+.msg-container { display:flex; align-items:flex-start; margin:8px 0; }
+.msg-container.user { justify-content:flex-end; }
+.msg-container.ai { justify-content:flex-start; }
 
-    /* Testimonials */
-    .testimonials {
-      padding: 40px 20px;
-      background: #fafafa;
-      text-align: center;
-    }
-    .testimonials blockquote {
-      font-style: italic;
-      margin: 10px 0;
-    }
+.msg-avatar { width:36px; height:36px; border-radius:50%; margin:0 8px; }
 
-    /* Dark mode */
-    .dark-mode {
-      background-color: #121212;
-      color: #f0f0f0;
-    }
-    .dark-mode #chat-container { background: #1e1e1e; }
-    .dark-mode .ai { background: #333; color: #f0f0f0; }
+.msg { padding:10px 14px; border-radius:12px; max-width:70%; line-height:1.4; word-wrap:break-word; position:relative; opacity:0; transform:translateY(10px); animation:fadeInUp 0.3s forwards; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:background 0.2s, color 0.2s; }
+.msg:hover { box-shadow:0 4px 12px rgba(0,0,0,0.15); transform:translateY(-2px); }
+.user .msg { background:#2575fc; color:#fff; border-bottom-right-radius:2px; }
+.ai .msg { background:#e0e0e0; color:#222; border-bottom-left-radius:2px; }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #eee;
-    }
+.dark-mode { background:#121212; color:#f0f0f0; }
+.dark-mode #chat-container { background:#1e1e1e; }
+.dark-mode .ai .msg { background:#333; color:#f0f0f0; }
 
-    @media (max-width: 768px) {
-      .hero, #chat-container, .testimonials {
-        padding: 20px;
-        font-size: 16px;
-      }
-    }
+@keyframes fadeInUp { 0% {opacity:0; transform:translateY(10px);} 100% {opacity:1; transform:translateY(0);} }
+
+#input-bar { display:flex; }
+#input { flex:1; padding:10px; border:none; border-radius:8px 0 0 8px; outline:none; }
+#send { background:#2575fc; border:none; color:white; padding:0 20px; border-radius:0 8px 8px 0; cursor:pointer; transition:0.2s; }
+#send:hover { background:#1a5bcc; }
+
+#voice { background:#4caf50; border:none; color:white; padding:0 16px; border-radius:0 8px 8px 0; cursor:pointer; margin-left:4px; transition:0.2s; }
+#voice:hover { background:#43a047; }
+
+.testimonials { padding:40px 20px; background:#fafafa; text-align:center; }
+.testimonials blockquote { font-style:italic; margin:10px 0; }
+
+footer { text-align:center; padding:20px; background:#eee; }
+
+@media(max-width:768px){ .hero, #chat-container, .testimonials { padding:20px; font-size:16px; } }
   </style>
 </head>
 
@@ -163,7 +96,7 @@
 
   <!-- Chat Logic -->
   <script>
-    const chat = document.getElementById("chat");
+const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 const sendBtn = document.getElementById("send");
 
@@ -248,3 +181,37 @@ function addMessage(text, cls) {
 
 sendBtn.addEventListener("click", sendMessage);
 input.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+
+    // Speech synthesis (AI speaks)
+function speak(text){
+  if(!window.speechSynthesis) return;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 1; // speaking speed
+  utter.pitch = 1; 
+  window.speechSynthesis.speak(utter);
+}
+
+// Speech recognition (user speaks)
+const voiceBtn = document.getElementById("voice");
+let recognition;
+if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRec();
+  recognition.continuous = false;
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+
+  recognition.onresult = function(event){
+    const transcript = event.results[0][0].transcript;
+    input.value = transcript;
+    sendMessage();
+  };
+}
+
+voiceBtn.addEventListener("click", ()=>{
+  if(!recognition) {
+    alert("Speech Recognition not supported in this browser.");
+    return;
+  }
+  recognition.start();
+});
