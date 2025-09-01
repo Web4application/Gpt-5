@@ -164,40 +164,87 @@
   <!-- Chat Logic -->
   <script>
     const chat = document.getElementById("chat");
-    const input = document.getElementById("input");
-    const sendBtn = document.getElementById("send");
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("send");
 
-    async function sendMessage() {
-      const text = input.value.trim();
-      if (!text) return;
-      addMessage("You: " + text, "user");
-      input.value = "";
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
 
-      try {
-        const res = await fetch("http://localhost:5000/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text })
-        });
-        const data = await res.json();
-        addMessage("AI: " + data.reply, "ai");
-      } catch (err) {
-        addMessage("⚠️ Error connecting to backend", "ai");
-      }
-    }
+  addMessage("You: " + text, "user");
+  input.value = ""; 
+  input.focus();
 
-    function addMessage(text, cls) {
-      const msg = document.createElement("div");
-      msg.className = `msg ${cls}`;
-      msg.textContent = text;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
-    }
+  // Create typing placeholder
+  const typingMsg = addMessage("AI is typing", "ai");
+  let dots = 0;
 
-    sendBtn.addEventListener("click", sendMessage);
-    input.addEventListener("keypress", e => {
-      if (e.key === "Enter") sendMessage();
+  // Animate dots
+  const typingInterval = setInterval(() => {
+    dots = (dots + 1) % 4; // 0..3 dots
+    typingMsg.textContent = "AI is typing" + ".".repeat(dots);
+    chat.scrollTop = chat.scrollHeight;
+  }, 500);
+
+  try {
+    const res = await fetch("/api/chat", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ message: text })
     });
-  </script>
-</body>
-</html>
+
+    if (!res.ok) throw new Error("Network response not OK");
+    const data = await res.json();
+
+    clearInterval(typingInterval); // stop dots
+    typingMsg.textContent = "";      // clear placeholder
+    typeText(typingMsg, "AI: " + data.reply, 30); // type actual reply
+  } catch(err) {
+    clearInterval(typingInterval);
+    typingMsg.textContent = "⚠️ Error connecting to backend";
+    console.error(err);
+  }
+}
+
+// Typing animation function
+function typeText(element, text, speed = 50) {
+  let i = 0;
+  function typing() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      chat.scrollTop = chat.scrollHeight;
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
+
+// Add message with avatars
+function addMessage(text, cls) {
+  const container = document.createElement("div");
+  container.className = `msg-container ${cls}`;
+
+  const avatar = document.createElement("img");
+  avatar.className = "msg-avatar";
+  avatar.src = cls === "user" ? "/user-avatar.png" : "/ai-avatar.png";
+
+  const msg = document.createElement("div");
+  msg.className = "msg";
+  msg.textContent = text;
+
+  if (cls === "user") {
+    container.appendChild(msg);
+    container.appendChild(avatar);
+  } else {
+    container.appendChild(avatar);
+    container.appendChild(msg);
+  }
+
+  chat.appendChild(container);
+  chat.scrollTop = chat.scrollHeight;
+  return msg;
+}
+
+sendBtn.addEventListener("click", sendMessage);
+input.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
