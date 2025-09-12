@@ -1,6 +1,6 @@
 ---
 
-# ChatGPT5 Mini
+# GPT-5 Mini
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg) ![Node.js](https://img.shields.io/badge/Node.js-v18+-brightgreen) ![OpenAI](https://img.shields.io/badge/OpenAI-API-blue) ![Vercel](https://img.shields.io/badge/Deploy-Vercel-purple)
 
@@ -44,11 +44,11 @@ chatgpt5-mini/
 
 ### Chat Interface
 
-![Chat Interface](https://via.placeholder.com/600x400?text=Chat+Interface+Screenshot)
+![Chat Interface](https://gpt-5-mini-kbfq-ia50oxg4d-web4apps.vercel.app/600x400?text=Chat+Interface+Screenshot)
 
 ### Chat in Action (GIF)
 
-![Chat In Action](https://via.placeholder.com/600x400?text=GIF+Placeholder)
+![Chat In Action](https://gpt-5-mini-kbfq-ia50oxg4d-web4apps.vercel.app/600x400?text=GIF+Placeholder)
 
 > Replace the placeholders with real images/GIFs of your app for best presentation.
 
@@ -81,7 +81,7 @@ OPENAI_API_KEY=sk-your-secret-key
 npm start
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:5000](https://gpt-5-mini-kbfq-ia50oxg4d-web4apps.vercel.app) in your browser.
 
 ---
 
