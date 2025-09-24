@@ -1,31 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web4 GPT-5 Mini Chat</title>
+  <title>Web4 App</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      background: transparent;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+      background-size: 1400% 1400%;
+      animation: rainbow 20s ease infinite;
+    }
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    img {
+      width: 300px;
+      animation: glow 2s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 20px white);
+    }
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 10px white); }
+      to { filter: drop-shadow(0 0 40px white); }
+    }
+    #music-toggle {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+    #music-toggle:hover {
+      background: rgba(0,0,0,0.8);
+    }
 
-  <!-- Favicon + Manifest -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#4dd0e1">
-
-  <link rel="stylesheet" href="styles.css">
+    /* Window controls */
+    #titlebar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      background: rgba(0,0,0,0.3);
+      -webkit-app-region: drag; /* drag window */
+    }
+    .btn {
+      -webkit-app-region: no-drag; /* buttons clickable */
+      padding: 8px 16px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="GPT-5 Mini Logo" id="logo">
-    <h1>🤖 Web4 GPT-5 Mini</h1>
-  </header>
+  <div id="titlebar">
+    <div class="btn" id="min-btn">—</div>
+    <div class="btn" id="max-btn">☐</div>
+    <div class="btn" id="close-btn">✕</div>
+  </div>
 
-  <main id="chat-container">
-    <div id="chat"></div>
-    <div id="input-bar">
-      <input id="input" type="text" placeholder="Say something…" />
-      <button id="send">➤</button>
-    </div>
-  </main>
+  <img src="web4.png" alt="Web4 Logo">
+  <audio id="bg-music" src="music.mp3" loop></audio>
+  <button id="music-toggle">Play Music</button>
 
-  <script src="chat.js"></script>
+  <script>
+    const { remote } = require("electron");
+    const currentWindow = remote.getCurrentWindow();
+
+    document.getElementById("min-btn").addEventListener("click", () => {
+      currentWindow.minimize();
+    });
+    document.getElementById("max-btn").addEventListener("click", () => {
+      if (currentWindow.isMaximized()) {
+        currentWindow.unmaximize();
+      } else {
+        currentWindow.maximize();
+      }
+    });
+    document.getElementById("close-btn").addEventListener("click", () => {
+      currentWindow.close();
+    });
+
+    const music = document.getElementById("bg-music");
+    const toggle = document.getElementById("music-toggle");
+
+    toggle.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        toggle.textContent = "Pause Music";
+      } else {
+        music.pause();
+        toggle.textContent = "Play Music";
+      }
+    });
+  </script>
 </body>
 </html>
