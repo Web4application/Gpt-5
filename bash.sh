@@ -1,3 +1,15 @@
+# Install from a specific registry
+npx shadcn@latest add @v0/dashboard
+
+# Install multiple resources
+npx shadcn@latest add @acme/button @lib/utils @ai/prompt
+
+# Install from URL directly
+npx shadcn@latest add https://registry.example.com/button.json
+
+# Install from local file
+npx shadcn@latest add ./local-registry/button.json
+
 node server.js
 mkdir gpt5mini-webchat && cd gpt5mini-webchat
 npm init -y
