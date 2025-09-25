@@ -43,3 +43,11 @@ if ("serviceWorker" in navigator) {
     .catch(err => console.error("SW registration failed:", err));
 }
 
+
+POST https://firebasedataconnect.googleapis.com/v1alpha/projects/{project}/locations/{location}/services/{service}/connectors/{connector}:execute{Query|Mutation}
+X-Firebase-Auth-Token: {the auth token}
+
+{
+  "operationName": "TheOperationName",
+  "variables": {"the": "variables"}
+}
