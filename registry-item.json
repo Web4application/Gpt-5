@@ -1,0 +1,11 @@
+{
+  "name": "dashboard",
+  "type": "registry:block",
+  "registryDependencies": [
+    "@shadcn/card", // From default registry
+    "@v0/chart", // From v0 registry
+    "@acme/data-table", // From acme registry
+    "@lib/data-fetcher", // Utility library
+    "@ai/analytics-prompt" // AI prompt resource
+  ]
+}
