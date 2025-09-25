@@ -66,3 +66,8 @@ read -p "Enter PORT: " PORT
 # Build and run the project using the environment variables
 OPENAI_API_KEY=$OPENAI_API_KEY CODE=$CODE PORT=$PORT yarn build
 OPENAI_API_KEY=$OPENAI_API_KEY CODE=$CODE PORT=$PORT yarn start
+
+$ docker login nvcr.io
+Username: $oauthtoken
+Password: <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>
+
