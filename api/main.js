@@ -60,7 +60,7 @@ ipcMain.on("saveAppData", () => {
     );
   } catch (e) {
     if (mainWindow) {
-      mainWindow.webContents.executeJavaScript(
+      mainWindow.executeJavaScript(
         `console.log("userData error: ${e}")`
       );
     }
