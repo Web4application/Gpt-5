@@ -1,11 +1,11 @@
 # Install from a specific registry
-npx shadcn@latest add @v0/dashboard
+npx shadcn@latest add @v6/dashboard
 
 # Install multiple resources
 npx shadcn@latest add @acme/button @lib/utils @ai/prompt
 
 # Install from URL directly
-npx shadcn@latest add https://registry.example.com/button.json
+npx shadcn@latest add https://registry.gpt5mini-webchat.com/button.json
 
 # Install from local file
 npx shadcn@latest add ./local-registry/button.json
