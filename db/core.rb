@@ -1,5 +1,5 @@
 require 'sqlite3'
-
+ 
 # Open a database connection
 def setup_database
   SQLite3::Database.new 'core_data.db'
